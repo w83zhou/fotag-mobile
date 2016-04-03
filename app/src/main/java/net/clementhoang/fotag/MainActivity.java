@@ -5,24 +5,31 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity {
 
+    public Model model;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d("info", "onCreate");
+        this.model = new Model();
+        //add observer
+
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.floating_search);
+        fab.setOnClickListener(new View.OnClickListener() { // url loader
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "pop up dialog", Snackbar.LENGTH_SHORT)
                         .setAction("Action", null).show();
             }
         });
@@ -43,7 +50,13 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.load) {
+            Log.d("info", "load action");
+            Snackbar.make(findViewById(android.R.id.content), "Loaded images", Snackbar.LENGTH_SHORT).setAction("Action", null).show();
+            return true;
+        } else if (id == R.id.clear) {
+            Log.d("info", "clear action");
+            Snackbar.make(findViewById(android.R.id.content), "Cleared images", Snackbar.LENGTH_SHORT).setAction("Action", null).show();
             return true;
         }
 
