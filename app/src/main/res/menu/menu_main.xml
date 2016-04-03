@@ -10,9 +10,6 @@
         android:icon="@drawable/load"
         android:title="Load"
         app:showAsAction="ifRoom"/>
-    <!--<item android:id="@+id/search"-->
-        <!--android:icon="@drawable/ic_help"-->
-        <!--android:title="Search" />-->
     <!--<item android:id="@+id/filter"-->
         <!--android:title="Filter" />-->
 </menu>

@@ -52,10 +52,12 @@ public class MainActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.load) {
             Log.d("info", "load action");
+            this.model.loadDefaults();
             Snackbar.make(findViewById(android.R.id.content), "Loaded images", Snackbar.LENGTH_SHORT).setAction("Action", null).show();
             return true;
         } else if (id == R.id.clear) {
             Log.d("info", "clear action");
+            this.model.clearAll();
             Snackbar.make(findViewById(android.R.id.content), "Cleared images", Snackbar.LENGTH_SHORT).setAction("Action", null).show();
             return true;
         }

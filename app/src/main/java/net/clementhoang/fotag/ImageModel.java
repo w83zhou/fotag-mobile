@@ -9,8 +9,10 @@ public class ImageModel {
     public transient ArrayList<IView> observers;
     public Date uploadDate;
     public int userRating;
+    public Integer id;
 
-    public ImageModel() {
+    public ImageModel(Integer id) {
+        this.id = id;
         this.userRating = -1;
         this.uploadDate = new Date();
         this.observers = new ArrayList<>();

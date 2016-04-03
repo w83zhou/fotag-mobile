@@ -17,6 +17,25 @@ public class Model {
         this.isFilterEnabled = false;
     }
 
+    public void loadDefaults() {
+        this.uploadedImages.add(new ImageModel(R.drawable.preloaded_1));
+        this.uploadedImages.add(new ImageModel(R.drawable.preloaded_2));
+        this.uploadedImages.add(new ImageModel(R.drawable.preloaded_3));
+        this.uploadedImages.add(new ImageModel(R.drawable.preloaded_4));
+        this.uploadedImages.add(new ImageModel(R.drawable.preloaded_5));
+        this.uploadedImages.add(new ImageModel(R.drawable.preloaded_6));
+        this.uploadedImages.add(new ImageModel(R.drawable.preloaded_7));
+        this.uploadedImages.add(new ImageModel(R.drawable.preloaded_8));
+        this.uploadedImages.add(new ImageModel(R.drawable.preloaded_9));
+        this.uploadedImages.add(new ImageModel(R.drawable.preloaded_10));
+
+        this.notifyViews(Action.AddImage);
+    }
+
+    public void clearAll() {
+        this.uploadedImages = new ArrayList<>();
+    }
+
     public int getFilteredImagesCount() {
         int count=0;
         if (this.isFilterEnabled) {
