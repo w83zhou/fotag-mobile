@@ -9,17 +9,26 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+
+import net.clementhoang.fotag.views.GalleryView;
 
 public class MainActivity extends AppCompatActivity {
 
     public Model model;
+    public GalleryView galleryView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d("info", "onCreate");
-        this.model = new Model();
-        //add observer
+
+        if (savedInstanceState != null) {
+            this.model = (Model) savedInstanceState.getSerializable("model");
+        } else {
+            this.model = new Model();
+        }
 
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -33,6 +42,46 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+    }
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+
+        Log.d("info", "onPostCreate");
+
+        // create the views and add them to the main activity
+        this.galleryView = new GalleryView(this, model);
+        ViewGroup v1 = (ViewGroup) findViewById(R.id.gallery_container);
+        v1.addView(this.galleryView);
+
+        galleryView.setAdapter(new ThumbnailAdapter(this, this.model));
+
+        galleryView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+                Snackbar.make(findViewById(android.R.id.content), "clicked" + id, Snackbar.LENGTH_SHORT).setAction("Action", null).show(); // try using v/parent
+            }
+        });
+
+        // initialize views
+//        this.model.notifyViews();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d("info", "destroyed");
+        ((ThumbnailAdapter)this.galleryView.getAdapter()).unbindAll();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        savedInstanceState.clear();
+        // Save the user's current game state
+        savedInstanceState.putSerializable("model", this.model);
+
+        // Always call the superclass so it can save the view hierarchy state
+        super.onSaveInstanceState(savedInstanceState);
     }
 
     @Override

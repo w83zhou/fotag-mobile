@@ -2,9 +2,10 @@ package net.clementhoang.fotag;
 
 import net.clementhoang.fotag.views.IView;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Model {
+public class Model implements Serializable {
     public ArrayList<ImageModel> uploadedImages;
     private transient ArrayList<IView> observers;
     public transient int currentFilter;
