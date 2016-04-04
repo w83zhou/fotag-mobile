@@ -9,10 +9,10 @@ import android.util.Log;
 import net.clementhoang.fotag.views.IView;
 
 import java.io.InputStream;
-import java.net.URL;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class ImageModel {
+public class ImageModel implements Serializable {
     public transient ArrayList<IView> observers;
     public int userRating;
     public int id;
