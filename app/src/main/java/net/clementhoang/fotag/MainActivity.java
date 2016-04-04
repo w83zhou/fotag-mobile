@@ -109,6 +109,7 @@ public class MainActivity extends AppCompatActivity implements IView {
             case RemoveImage:
             case Refresh:
             case SetFilter:
+            case ChangeRating:
                 ((ThumbnailAdapter)this.galleryView.getAdapter()).refreshImagesToDisplay();
                 ((ThumbnailAdapter)this.galleryView.getAdapter()).notifyDataSetChanged();
                 break;

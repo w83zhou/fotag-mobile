@@ -80,6 +80,7 @@ public class ImageModel implements Serializable {
     public void setRating(int rating) {
         this.userRating = rating;
         this.notifyViews(Action.ChangeRating);
+        this.model.notifyViews(Action.ChangeRating);
     }
 
     public void notifyViews(Action a) {
