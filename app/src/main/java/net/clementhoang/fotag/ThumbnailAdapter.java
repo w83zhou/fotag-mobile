@@ -44,7 +44,7 @@ public class ThumbnailAdapter extends BaseAdapter {
 
     // create a new ImageView for each item referenced by the Adapter
     public View getView(int position, View convertView, ViewGroup parent) {
-        Log.d("info", "position: " + position + " , length: " + this.getCount());
+//        Log.d("info", "position: " + position + " , length: " + this.getCount());
 
 //        ImageView imageView;
 //        if (convertView == null) {

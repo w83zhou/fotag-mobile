@@ -20,7 +20,7 @@ public class ThumbnailView extends LinearLayout implements IView {
         super(c);
 
         this.model = m;
-        Log.d("info", "ThumbnailView constructed");
+//        Log.d("info", "ThumbnailView constructed");
         this.backingView = LayoutInflater.from(c).inflate(R.layout.thumbnail_view, parent, false);
 
         this.model.addObserver(this);

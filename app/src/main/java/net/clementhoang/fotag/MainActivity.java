@@ -1,5 +1,6 @@
 package net.clementhoang.fotag;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -18,6 +19,21 @@ public class MainActivity extends AppCompatActivity implements IView {
 
     public Model model;
     public GridView galleryView;
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            Log.d("info", "change orientation to portrait");
+            galleryView.setNumColumns(1);
+        } else if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            Log.d("info", "change orientation to landscape");
+            galleryView.setNumColumns(-1); //auto_fit
+        } else {
+            Log.d("info", "Weird orientation");
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
