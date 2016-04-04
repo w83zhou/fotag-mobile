@@ -1,6 +1,7 @@
 package net.clementhoang.fotag.views;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,8 +21,22 @@ public class ThumbnailView extends LinearLayout implements IView {
         super(c);
 
         this.model = m;
-//        Log.d("info", "ThumbnailView constructed");
         this.backingView = LayoutInflater.from(c).inflate(R.layout.thumbnail_view, parent, false);
+
+        //        ImageView imageView;
+//        if (convertView == null) {
+//            // if it's not recycled, initialize some attributes
+//            imageView = new ImageView(mContext);
+//            imageView.setLayoutParams(new GridView.LayoutParams(300, 300));
+//            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+//            imageView.setPadding(8, 8, 8, 8);
+//        } else {
+//            imageView = (ImageView) convertView;
+//        }
+//
+//        imageView.setImageResource(this.model.uploadedImages.get(position).id);
+//        this.imageViews.add(imageView);
+//        return imageView;
 
         this.model.addObserver(this);
     }

@@ -11,17 +11,13 @@ import android.widget.ImageView;
 
 import net.clementhoang.fotag.views.ThumbnailView;
 
-import java.util.ArrayList;
-
 public class ThumbnailAdapter extends BaseAdapter {
     private Context mContext;
     public Model model;
-    public ArrayList<ImageView> imageViews;
 
     public ThumbnailAdapter(Context c, Model m) {
         this.mContext = c;
         this.model = m;
-        this.imageViews = new ArrayList<>();
     }
 
     public int getCount() {
@@ -36,35 +32,19 @@ public class ThumbnailAdapter extends BaseAdapter {
         return position;
     }
 
-    public void unbindAll() {
-        for (ImageView iv: this.imageViews) {
-            iv.setImageDrawable(null);
-        }
-    }
-
-    // create a new ImageView for each item referenced by the Adapter
     public View getView(int position, View convertView, ViewGroup parent) {
-//        Log.d("info", "position: " + position + " , length: " + this.getCount());
-
-//        ImageView imageView;
-//        if (convertView == null) {
-//            // if it's not recycled, initialize some attributes
-//            imageView = new ImageView(mContext);
-//            imageView.setLayoutParams(new GridView.LayoutParams(300, 300));
-//            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-//            imageView.setPadding(8, 8, 8, 8);
-//        } else {
-//            imageView = (ImageView) convertView;
-//        }
-//
-//        imageView.setImageResource(this.model.uploadedImages.get(position).id);
-//        this.imageViews.add(imageView);
-//        return imageView;
-
+        Log.d("info", "position: " + position);
         if (convertView == null) {
+            Log.d("info", "making new thumbnail");
             ThumbnailView thumbnailView = new ThumbnailView(this.mContext, this.model, parent);
+            ImageView iv = (ImageView) thumbnailView.backingView.findViewById(R.id.image_view);
+            iv.setImageBitmap(model.uploadedImages.get(position).bitmap);
+
             return thumbnailView.backingView;
         } else {
+            Log.d("info", "returning convertView");
+            ImageView iv = (ImageView) convertView.findViewById(R.id.image_view);
+            iv.setImageBitmap(model.uploadedImages.get(position).bitmap);
             return convertView;
         }
     }

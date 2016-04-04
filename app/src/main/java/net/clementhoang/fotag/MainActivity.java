@@ -14,11 +14,15 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 
 import net.clementhoang.fotag.views.IView;
+import net.clementhoang.fotag.views.ThumbnailView;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements IView {
 
     public Model model;
     public GridView galleryView;
+    public ArrayList<ThumbnailView> thumbnailViews;
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
@@ -42,11 +46,13 @@ public class MainActivity extends AppCompatActivity implements IView {
 
         if (savedInstanceState != null) {
             this.model = (Model) savedInstanceState.getSerializable("model");
+            this.model.context = this;
         } else {
-            this.model = new Model();
+            this.model = new Model(this);
         }
 
         this.model.addObserver(this);
+        thumbnailViews = new ArrayList<>();
 
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -80,6 +86,7 @@ public class MainActivity extends AppCompatActivity implements IView {
 
     public void updateView(Action a) {
         Log.d("info", "MainActivity updated");
+        // TODO: check if AddImage or RemoveImage action
         ((ThumbnailAdapter)this.galleryView.getAdapter()).notifyDataSetChanged();
     }
 
@@ -87,7 +94,6 @@ public class MainActivity extends AppCompatActivity implements IView {
     public void onDestroy() {
         super.onDestroy();
         Log.d("info", "destroyed");
-        ((ThumbnailAdapter)this.galleryView.getAdapter()).unbindAll();
     }
 
     @Override

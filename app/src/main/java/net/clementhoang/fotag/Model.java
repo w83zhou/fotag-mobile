@@ -1,5 +1,7 @@
 package net.clementhoang.fotag;
 
+import android.content.Context;
+
 import net.clementhoang.fotag.views.IView;
 
 import java.io.Serializable;
@@ -10,31 +12,34 @@ public class Model implements Serializable {
     private transient ArrayList<IView> observers;
     public transient int currentFilter;
     public transient boolean isFilterEnabled;
+    public transient Context context;
 
-    public Model() {
+    public Model(Context context) {
         this.uploadedImages = new ArrayList<>();
         this.observers = new ArrayList<>();
         this.currentFilter = 1;
         this.isFilterEnabled = false;
+        this.context = context;
     }
 
     public void loadDefaults() {
-        this.uploadedImages.add(new ImageModel(R.drawable.preloaded_1));
-        this.uploadedImages.add(new ImageModel(R.drawable.preloaded_2));
-        this.uploadedImages.add(new ImageModel(R.drawable.preloaded_3));
-        this.uploadedImages.add(new ImageModel(R.drawable.preloaded_4));
-        this.uploadedImages.add(new ImageModel(R.drawable.preloaded_5));
-        this.uploadedImages.add(new ImageModel(R.drawable.preloaded_6));
-        this.uploadedImages.add(new ImageModel(R.drawable.preloaded_7));
-        this.uploadedImages.add(new ImageModel(R.drawable.preloaded_8));
-        this.uploadedImages.add(new ImageModel(R.drawable.preloaded_9));
-        this.uploadedImages.add(new ImageModel(R.drawable.preloaded_10));
+        this.uploadedImages.add(new ImageModel(R.drawable.preloaded_1, this.context));
+        this.uploadedImages.add(new ImageModel(R.drawable.preloaded_2, this.context));
+        this.uploadedImages.add(new ImageModel(R.drawable.preloaded_3, this.context));
+        this.uploadedImages.add(new ImageModel(R.drawable.preloaded_4, this.context));
+        this.uploadedImages.add(new ImageModel(R.drawable.preloaded_5, this.context));
+        this.uploadedImages.add(new ImageModel(R.drawable.preloaded_6, this.context));
+        this.uploadedImages.add(new ImageModel(R.drawable.preloaded_7, this.context));
+        this.uploadedImages.add(new ImageModel(R.drawable.preloaded_8, this.context));
+        this.uploadedImages.add(new ImageModel(R.drawable.preloaded_9, this.context));
+        this.uploadedImages.add(new ImageModel(R.drawable.preloaded_10, this.context));
 
         this.notifyViews(Action.AddImage);
     }
 
     public void clearAll() {
         this.uploadedImages = new ArrayList<>();
+        this.notifyViews(Action.RemoveImage);
     }
 
     public int getFilteredImagesCount() {

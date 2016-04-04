@@ -33,7 +33,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:columnWidth="100dp"
+            android:columnWidth="200dp"
             android:numColumns="auto_fit"
             android:verticalSpacing="0dp"
             android:horizontalSpacing="0dp"
