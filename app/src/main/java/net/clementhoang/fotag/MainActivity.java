@@ -9,15 +9,15 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.GridView;
 
-import net.clementhoang.fotag.views.GalleryView;
+import net.clementhoang.fotag.views.IView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements IView {
 
     public Model model;
-    public GalleryView galleryView;
+    public GridView galleryView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
         } else {
             this.model = new Model();
         }
+
+        this.model.addObserver(this);
 
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -50,21 +52,19 @@ public class MainActivity extends AppCompatActivity {
 
         Log.d("info", "onPostCreate");
 
-        // create the views and add them to the main activity
-        this.galleryView = new GalleryView(this, model);
-        ViewGroup v1 = (ViewGroup) findViewById(R.id.gallery_container);
-        v1.addView(this.galleryView);
+        this.galleryView = (GridView) findViewById(R.id.gridview);
 
         galleryView.setAdapter(new ThumbnailAdapter(this, this.model));
-
         galleryView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-                Snackbar.make(findViewById(android.R.id.content), "clicked" + id, Snackbar.LENGTH_SHORT).setAction("Action", null).show(); // try using v/parent
+                Snackbar.make(v, "clicked" + id, Snackbar.LENGTH_SHORT).setAction("Action", null).show();
             }
         });
+    }
 
-        // initialize views
-//        this.model.notifyViews();
+    public void updateView(Action a) {
+        Log.d("info", "MainActivity updated");
+        ((ThumbnailAdapter)this.galleryView.getAdapter()).notifyDataSetChanged();
     }
 
     @Override

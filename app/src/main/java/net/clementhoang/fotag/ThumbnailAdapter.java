@@ -29,11 +29,11 @@ public class ThumbnailAdapter extends BaseAdapter {
     }
 
     public Object getItem(int position) {
-        return null;
+        return this.model.uploadedImages.get(position);
     }
 
     public long getItemId(int position) {
-        return -1;
+        return position;
     }
 
     public void unbindAll() {
@@ -62,7 +62,7 @@ public class ThumbnailAdapter extends BaseAdapter {
 //        return imageView;
 
         if (convertView == null) {
-            ThumbnailView thumbnailView = new ThumbnailView(this.mContext, this.model);
+            ThumbnailView thumbnailView = new ThumbnailView(this.mContext, this.model, parent);
             return thumbnailView.backingView;
         } else {
             return convertView;
