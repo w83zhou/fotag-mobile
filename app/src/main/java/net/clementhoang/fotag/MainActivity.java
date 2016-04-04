@@ -32,10 +32,8 @@ public class MainActivity extends AppCompatActivity implements IView {
         super.onConfigurationChanged(newConfig);
 
         if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
-            Log.d("info", "change orientation to portrait");
             galleryView.setNumColumns(1);
         } else if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            Log.d("info", "change orientation to landscape");
             galleryView.setNumColumns(-1); //auto_fit
         } else {
             Log.d("info", "Weird orientation");
@@ -45,7 +43,6 @@ public class MainActivity extends AppCompatActivity implements IView {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d("info", "onCreate");
 
         if (savedInstanceState != null) {
             this.model = (Model) savedInstanceState.getSerializable("model");
@@ -94,8 +91,6 @@ public class MainActivity extends AppCompatActivity implements IView {
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
 
-        Log.d("info", "onPostCreate");
-
         this.galleryView = (GridView) findViewById(R.id.gridview);
 
         galleryView.setAdapter(new ThumbnailAdapter(this, this.model));
@@ -109,7 +104,6 @@ public class MainActivity extends AppCompatActivity implements IView {
     }
 
     public void updateView(Action a) {
-        Log.d("info", "MainActivity updated");
         switch(a) {
             case AddImage:
             case RemoveImage:
@@ -124,7 +118,6 @@ public class MainActivity extends AppCompatActivity implements IView {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.d("info", "destroyed");
     }
 
     @Override

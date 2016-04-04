@@ -49,8 +49,6 @@ public class ThumbnailView extends LinearLayout implements IView {
     }
 
     public void updateView(Action a) {
-        Log.d("info", "ThumbnailView updated");
-
         this.ratingBar = (RatingBar) this.backingView.findViewById(R.id.rating_bar);
         this.ratingBar.setRating(this.imageModel.userRating);
 

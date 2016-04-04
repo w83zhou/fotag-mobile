@@ -32,7 +32,6 @@ public class ActionBar implements IView {
 
         @Override
         public void onClick(View v) {
-            Log.d("info", "clicked star: " + pos);
             model.setCurrentFilter(pos+1);
         }
     }
@@ -65,7 +64,6 @@ public class ActionBar implements IView {
         clearButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("info", "clear action");
                 model.clearAll();
                 imagesLoaded = false;
                 Snackbar.make(backingView.getRootView().findViewById(R.id.gridview), "Cleared images", Snackbar.LENGTH_SHORT).setAction("Action", null).show();
@@ -75,7 +73,6 @@ public class ActionBar implements IView {
         loadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("info", "load action");
                 if (!imagesLoaded) {
                     model.loadDefaults();
                     Snackbar.make(backingView.getRootView().findViewById(R.id.gridview), "Loaded images", Snackbar.LENGTH_SHORT).setAction("Action", null).show();
@@ -89,14 +86,12 @@ public class ActionBar implements IView {
         refreshButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("info", "reset filter");
                 model.setCurrentFilter(0);
             }
         });
     }
 
     public void updateView(Action a) {
-        Log.d("info", "Action bar updated");
         switch(a) {
             case SetFilter:
                 for (int i=0; i<this.model.currentFilter; ++i) {

@@ -50,9 +50,7 @@ public class ThumbnailAdapter extends BaseAdapter {
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
-        Log.d("info", "position: " + position);
         if (convertView == null) {
-            Log.d("info", "making new thumbnail");
             View thumbnail = LayoutInflater.from(this.mContext).inflate(R.layout.thumbnail_view, parent, false);
             ThumbnailView tv = new ThumbnailView(this.mContext, this.filteredImages.get(position), thumbnail);
             tv.updateView(Action.Refresh);
@@ -61,7 +59,6 @@ public class ThumbnailAdapter extends BaseAdapter {
 
             return tv.backingView;
         } else {
-            Log.d("info", "returning convertView");
             ThumbnailView tv = getThumbnailViewForBackingView(convertView);
             tv.imageModel = filteredImages.get(position);
             tv.updateView(Action.Refresh);
