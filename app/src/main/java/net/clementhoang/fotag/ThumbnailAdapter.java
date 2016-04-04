@@ -7,10 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.GridView;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RatingBar;
 
 import net.clementhoang.fotag.views.ThumbnailView;
 
@@ -20,19 +16,34 @@ public class ThumbnailAdapter extends BaseAdapter {
     private Context mContext;
     public Model model;
     public ArrayList<ThumbnailView> thumbnailViews;
+    public ArrayList<ImageModel> filteredImages;
 
     public ThumbnailAdapter(Context c, Model m) {
         this.mContext = c;
         this.model = m;
         this.thumbnailViews = new ArrayList<>();
+        refreshImagesToDisplay();
+    }
+
+    public void refreshImagesToDisplay() {
+        this.filteredImages = new ArrayList<>();
+        if (model.currentFilter > 0) {
+            for (ImageModel imageModel : this.model.uploadedImages) {
+                if (imageModel.userRating >= model.currentFilter) {
+                    this.filteredImages.add(imageModel);
+                }
+            }
+        } else {
+            this.filteredImages = this.model.uploadedImages;
+        }
     }
 
     public int getCount() {
-        return this.model.uploadedImages.size();
+        return this.filteredImages.size();
     }
 
     public Object getItem(int position) {
-        return this.model.uploadedImages.get(position);
+        return this.filteredImages.get(position);
     }
 
     public long getItemId(int position) {
@@ -44,7 +55,7 @@ public class ThumbnailAdapter extends BaseAdapter {
         if (convertView == null) {
             Log.d("info", "making new thumbnail");
             View thumbnail = LayoutInflater.from(this.mContext).inflate(R.layout.thumbnail_view, parent, false);
-            ThumbnailView tv = new ThumbnailView(this.mContext, this.model.uploadedImages.get(position), thumbnail);
+            ThumbnailView tv = new ThumbnailView(this.mContext, this.filteredImages.get(position), thumbnail);
             tv.updateView(Action.Refresh);
 
             this.thumbnailViews.add(tv);
@@ -53,7 +64,7 @@ public class ThumbnailAdapter extends BaseAdapter {
         } else {
             Log.d("info", "returning convertView");
             ThumbnailView tv = getThumbnailViewForBackingView(convertView);
-            tv.imageModel = model.uploadedImages.get(position);
+            tv.imageModel = filteredImages.get(position);
             tv.updateView(Action.Refresh);
 
             return convertView;

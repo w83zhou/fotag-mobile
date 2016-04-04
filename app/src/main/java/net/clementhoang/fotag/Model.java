@@ -11,14 +11,12 @@ public class Model implements Serializable {
     public ArrayList<ImageModel> uploadedImages;
     private transient ArrayList<IView> observers;
     public transient int currentFilter;
-    public transient boolean isFilterEnabled;
     public transient Context context;
 
     public Model(Context context) {
         this.uploadedImages = new ArrayList<>();
         this.observers = new ArrayList<>();
-        this.currentFilter = 1;
-        this.isFilterEnabled = false;
+        this.currentFilter = 0;
         this.context = context;
     }
 
@@ -42,29 +40,9 @@ public class Model implements Serializable {
         this.notifyViews(Action.RemoveImage);
     }
 
-    public int getFilteredImagesCount() {
-        int count=0;
-        if (this.isFilterEnabled) {
-            for (ImageModel im:this.uploadedImages) {
-                if (im.userRating >= this.currentFilter) {
-                    count++;
-                }
-            }
-        } else {
-            count = this.uploadedImages.size();
-        }
-
-        return count;
-    }
-
     public void setCurrentFilter(int i) {
         this.currentFilter = i;
         this.notifyViews(Action.SetFilter);
-    }
-
-    public void toggleFilter() {
-        this.isFilterEnabled = !this.isFilterEnabled;
-        this.notifyViews(Action.ToggleFilter);
     }
 
     public void addImage(ImageModel image) {

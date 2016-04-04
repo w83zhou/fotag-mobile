@@ -7,10 +7,8 @@ import android.util.Log;
 
 import net.clementhoang.fotag.views.IView;
 
-import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class ImageModel {
     public transient ArrayList<IView> observers;
