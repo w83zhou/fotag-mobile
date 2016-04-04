@@ -21,16 +21,16 @@ public class Model implements Serializable {
     }
 
     public void loadDefaults() {
-        this.uploadedImages.add(new ImageModel(R.drawable.preloaded_1, this.context));
-        this.uploadedImages.add(new ImageModel(R.drawable.preloaded_2, this.context));
-        this.uploadedImages.add(new ImageModel(R.drawable.preloaded_3, this.context));
-        this.uploadedImages.add(new ImageModel(R.drawable.preloaded_4, this.context));
-        this.uploadedImages.add(new ImageModel(R.drawable.preloaded_5, this.context));
-        this.uploadedImages.add(new ImageModel(R.drawable.preloaded_6, this.context));
-        this.uploadedImages.add(new ImageModel(R.drawable.preloaded_7, this.context));
-        this.uploadedImages.add(new ImageModel(R.drawable.preloaded_8, this.context));
-        this.uploadedImages.add(new ImageModel(R.drawable.preloaded_9, this.context));
-        this.uploadedImages.add(new ImageModel(R.drawable.preloaded_10, this.context));
+        this.uploadedImages.add(new ImageModel(R.drawable.preloaded_1, this.context, this));
+        this.uploadedImages.add(new ImageModel(R.drawable.preloaded_2, this.context, this));
+        this.uploadedImages.add(new ImageModel(R.drawable.preloaded_3, this.context, this));
+        this.uploadedImages.add(new ImageModel(R.drawable.preloaded_4, this.context, this));
+        this.uploadedImages.add(new ImageModel(R.drawable.preloaded_5, this.context, this));
+        this.uploadedImages.add(new ImageModel(R.drawable.preloaded_6, this.context, this));
+        this.uploadedImages.add(new ImageModel(R.drawable.preloaded_7, this.context, this));
+        this.uploadedImages.add(new ImageModel(R.drawable.preloaded_8, this.context, this));
+        this.uploadedImages.add(new ImageModel(R.drawable.preloaded_9, this.context, this));
+        this.uploadedImages.add(new ImageModel(R.drawable.preloaded_10, this.context, this));
 
         this.notifyViews(Action.AddImage);
     }

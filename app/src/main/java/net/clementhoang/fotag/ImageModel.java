@@ -3,10 +3,12 @@ package net.clementhoang.fotag;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.util.Log;
 
 import net.clementhoang.fotag.views.IView;
 
+import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 
@@ -17,22 +19,48 @@ public class ImageModel {
     public String url;
     public transient Bitmap bitmap;
     public transient Context context;
+    public transient Model model;
 
-    public ImageModel(Integer id, Context context) {
+    public ImageModel(Integer id, Context context, Model m) {
         this.id = id;
         this.userRating = 0;
         this.observers = new ArrayList<>();
         this.context = context;
+        this.model = m;
         this.bitmap = BitmapFactory.decodeResource(context.getResources(), id);
     }
 
-    public ImageModel(String url, Context context) {
+    public ImageModel(String url, Context context, Model m) {
         this.url = url;
+        this.userRating = 0;
+        this.observers = new ArrayList<>();
         this.context = context;
-        try {
-            this.bitmap = BitmapFactory.decodeStream((new URL(url)).openStream());
-        } catch (Exception e) {
-            Log.d("info", "Failed to decode from url: " + url);
+        this.model = m;
+        new DownloadImageTask(this).execute(url);
+    }
+
+    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+        private ImageModel imageModel;
+        public DownloadImageTask(ImageModel imageModel) {
+            this.imageModel = imageModel;
+        }
+
+        protected Bitmap doInBackground(String... urls) {
+            String url = urls[0];
+            Bitmap bm = null;
+            try {
+                InputStream in = new java.net.URL(url).openStream();
+                bm = BitmapFactory.decodeStream(in);
+            } catch (Exception e) {
+                Log.e("Error", e.getMessage());
+            }
+            return bm;
+        }
+
+        protected void onPostExecute(Bitmap result) {
+            this.imageModel.bitmap = result;
+            this.imageModel.notifyViews(Action.AddImage);
+            model.notifyViews(Action.AddImage);
         }
     }
 
