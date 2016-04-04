@@ -3,6 +3,8 @@ package net.clementhoang.fotag.views;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.media.Image;
+import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
@@ -21,6 +23,7 @@ public class ActionBar implements IView {
     public View backingView;
     public ArrayList<ImageButton> starButtons;
     public Drawable emptyStar, filledStar;
+    private boolean imagesLoaded = false;
 
     private class StarListener implements View.OnClickListener {
         int pos;
@@ -55,6 +58,42 @@ public class ActionBar implements IView {
             this.starButtons.get(i).setOnClickListener(new StarListener(i));
             this.starButtons.get(i).setTag(i);
         }
+
+        ImageButton clearButton = (ImageButton)this.backingView.findViewById(R.id.clear);
+        ImageButton loadButton = (ImageButton)this.backingView.findViewById(R.id.load);
+        ImageButton refreshButton = (ImageButton)this.backingView.findViewById(R.id.refresh);
+
+        clearButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("info", "clear action");
+                model.clearAll();
+                imagesLoaded = false;
+                Snackbar.make(backingView.getRootView().findViewById(R.id.gridview), "Cleared images", Snackbar.LENGTH_SHORT).setAction("Action", null).show();
+            }
+        });
+
+        loadButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("info", "load action");
+                if (!imagesLoaded) {
+                    model.loadDefaults();
+                    Snackbar.make(backingView.getRootView().findViewById(R.id.gridview), "Loaded images", Snackbar.LENGTH_SHORT).setAction("Action", null).show();
+                    imagesLoaded = true;
+                } else {
+                    Snackbar.make(backingView.getRootView().findViewById(R.id.gridview), "Images already loaded", Snackbar.LENGTH_SHORT).setAction("Action", null).show();
+                }
+            }
+        });
+
+        refreshButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("info", "reset filter");
+                model.setCurrentFilter(0);
+            }
+        });
     }
 
     public void updateView(Action a) {
