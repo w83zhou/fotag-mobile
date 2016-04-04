@@ -1,18 +1,18 @@
 package net.clementhoang.fotag.views;
 
+import android.app.Dialog;
 import android.content.Context;
-import android.graphics.Bitmap;
+import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 
 import net.clementhoang.fotag.Action;
 import net.clementhoang.fotag.ImageModel;
-import net.clementhoang.fotag.Model;
 import net.clementhoang.fotag.R;
 
 public class ThumbnailView extends LinearLayout implements IView {
@@ -26,6 +26,26 @@ public class ThumbnailView extends LinearLayout implements IView {
 
         this.imageModel = m;
         this.backingView = backingView;
+
+        this.backingView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Dialog dialog = new Dialog(ThumbnailView.this.backingView.getContext(), R.style.FullScreenDialog);
+                dialog.setContentView(R.layout.full_screen);
+                ImageView iv = (ImageView) dialog.findViewById(R.id.image_view);
+                iv.setImageBitmap(imageModel.bitmap);
+                iv.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+                dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+
+                dialog.setCancelable(true);
+                dialog.show();
+            }
+        });
     }
 
     public void updateView(Action a) {
