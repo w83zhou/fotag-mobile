@@ -8,19 +8,6 @@
     android:id="@+id/root_view"
     tools:context="net.clementhoang.fotag.MainActivity">
 
-    <!--<android.support.design.widget.AppBarLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:theme="@style/AppTheme.AppBarOverlay">-->
-
-        <!--<android.support.v7.widget.Toolbar-->
-            <!--android:id="@+id/toolbar"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="?attr/actionBarSize"-->
-            <!--android:background="?attr/colorPrimary"-->
-            <!--app:popupTheme="@style/AppTheme.PopupOverlay" />-->
-
-    <!--</android.support.design.widget.AppBarLayout>-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -32,6 +19,7 @@
             android:id="@+id/gallery_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:padding="10dp"
             android:orientation="vertical">
             <GridView
                 android:id="@+id/gridview"
@@ -46,29 +34,7 @@
                 android:gravity="center"
                 />
         </LinearLayout>
-
     </LinearLayout>
-    <!--<include layout="@layout/action_bar"/>-->
-
-    <!--<LinearLayout-->
-        <!--android:id="@+id/gallery_container"-->
-        <!--app:layout_behavior="@string/appbar_scrolling_view_behavior"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:orientation="vertical">-->
-        <!--<GridView-->
-            <!--android:id="@+id/gridview"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_centerHorizontal="true"-->
-            <!--android:columnWidth="200dp"-->
-            <!--android:numColumns="auto_fit"-->
-            <!--android:verticalSpacing="0dp"-->
-            <!--android:horizontalSpacing="0dp"-->
-            <!--android:stretchMode="columnWidth"-->
-            <!--android:gravity="center"-->
-            <!--/>-->
-    <!--</LinearLayout>-->
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/floating_search"
