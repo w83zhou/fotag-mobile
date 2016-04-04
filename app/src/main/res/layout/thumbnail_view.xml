@@ -2,7 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="230dp"
+    android:layout_height="wrap_content"
+    android:layout_centerHorizontal="true"
+    android:gravity="center"
     android:background="@drawable/border">
     
     <ImageView
@@ -11,9 +13,11 @@
         android:layout_height="200dp"
         android:adjustViewBounds="true"
         android:scaleType="fitCenter"/>
-    <TextView
+    <RatingBar
+        android:background="@drawable/border2"
+        android:id="@+id/rating_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/border2"
-        android:text="test"/>
+        android:numStars="5"
+        android:stepSize="1.0" />
 </LinearLayout>

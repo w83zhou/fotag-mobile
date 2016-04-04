@@ -22,7 +22,7 @@ public class ImageModel {
 
     public ImageModel(Integer id, Context context) {
         this.id = id;
-        this.userRating = -1;
+        this.userRating = 0;
         this.observers = new ArrayList<>();
         this.context = context;
         this.bitmap = BitmapFactory.decodeResource(context.getResources(), id);
