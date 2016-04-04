@@ -2,11 +2,14 @@ package net.clementhoang.fotag;
 
 import android.content.Context;
 import android.media.Image;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
+
+import net.clementhoang.fotag.views.ThumbnailView;
 
 import java.util.ArrayList;
 
@@ -30,7 +33,7 @@ public class ThumbnailAdapter extends BaseAdapter {
     }
 
     public long getItemId(int position) {
-        return 0;
+        return -1;
     }
 
     public void unbindAll() {
@@ -41,19 +44,28 @@ public class ThumbnailAdapter extends BaseAdapter {
 
     // create a new ImageView for each item referenced by the Adapter
     public View getView(int position, View convertView, ViewGroup parent) {
-        ImageView imageView;
-        if (convertView == null) {
-            // if it's not recycled, initialize some attributes
-            imageView = new ImageView(mContext);
-            imageView.setLayoutParams(new GridView.LayoutParams(300, 300));
-            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            imageView.setPadding(8, 8, 8, 8);
-        } else {
-            imageView = (ImageView) convertView;
-        }
+        Log.d("info", "position: " + position + " , length: " + this.getCount());
 
-        imageView.setImageResource(this.model.uploadedImages.get(position).id);
-        this.imageViews.add(imageView);
-        return imageView;
+//        ImageView imageView;
+//        if (convertView == null) {
+//            // if it's not recycled, initialize some attributes
+//            imageView = new ImageView(mContext);
+//            imageView.setLayoutParams(new GridView.LayoutParams(300, 300));
+//            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+//            imageView.setPadding(8, 8, 8, 8);
+//        } else {
+//            imageView = (ImageView) convertView;
+//        }
+//
+//        imageView.setImageResource(this.model.uploadedImages.get(position).id);
+//        this.imageViews.add(imageView);
+//        return imageView;
+
+        if (convertView == null) {
+            ThumbnailView thumbnailView = new ThumbnailView(this.mContext, this.model);
+            return thumbnailView.backingView;
+        } else {
+            return convertView;
+        }
     }
 }
