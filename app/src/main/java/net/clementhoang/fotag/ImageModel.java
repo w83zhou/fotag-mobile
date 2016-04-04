@@ -1,5 +1,6 @@
 package net.clementhoang.fotag;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -53,6 +54,14 @@ public class ImageModel implements Serializable {
                 bm = BitmapFactory.decodeStream(in);
             } catch (Exception e) {
                 Log.e("Error", e.getMessage());
+
+                ((Activity)context).runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        model.uploadedImages.remove(imageModel);
+                        model.notifyViews(Action.RemoveImage);
+                    }
+                });
             }
             return bm;
         }
